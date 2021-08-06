@@ -48,7 +48,7 @@ RUN set -ex; \
     "; \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y $buildDeps $runtimeDeps; \
     ln -s /usr/bin/msmtp /usr/sbin/sendmail; \
-    docker-php-ext-install bcmath opcache pdo_mysql intl zip pcntl; \
+    docker-php-ext-install bcmath opcache pdo_mysql intl zip pcntl exif; \
     pecl install timezonedb redis ev; \
     docker-php-ext-enable timezonedb redis ev; \
     apt-get purge -y --auto-remove $buildDeps; \
