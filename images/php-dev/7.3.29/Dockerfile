@@ -37,9 +37,8 @@ RUN set -ex; \
     chmod +x /usr/local/bin/dep; \
     \
     apt-get update; \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y nodejs; \
-    curl https://www.npmjs.com/install.sh | sh; \
-    npm install npm@6.14.10 -g;
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -; \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y nodejs;
 
 VOLUME ["/var/cache/cache-composer", "/var/cache/cache-npm"]
 
