@@ -1,4 +1,4 @@
-# Base php:7.3.29-fpm image
+# Base php:8.1.0-fpm image
 
 Image for using in production.
 
@@ -33,7 +33,7 @@ In `docker-compose.yml`:
 ```yaml
 services:
   php:
-    image: dmitrakovich/php:7.3.29
+    image: dmitrakovich/php:8.1.0
     container_name: php
     restart: always
     depends_on:
@@ -69,7 +69,7 @@ In `docker-compose.yml`:
 ```yaml
 services:
   cron:
-    image: dmitrakovich/php:7.3.29
+    image: dmitrakovich/php:8.1.0
     container_name: cron
     restart: always
     init: true
@@ -111,7 +111,7 @@ In `docker-compose.yml`:
 ```yaml
 services:
   supervisor:
-    image: dmitrakovich/php:7.3.29
+    image: dmitrakovich/php:8.1.0
     container_name: supervisor
     restart: always
     entrypoint: ["/opt/entrypoint-supervisor.sh"]

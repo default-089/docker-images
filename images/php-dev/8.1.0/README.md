@@ -1,8 +1,8 @@
-# Dev php:7.3.29-fpm image
+# Dev php:8.1.0-fpm image
 
 Image for using in development and CI.
 
-Based on [php:7.3.29](../../php/7.3.29/) image.
+Based on [php-8.1.0](../../php/8.1.0/) image.
 
 ## Additional php-libs
 
@@ -32,7 +32,7 @@ In `docker-compose.yml`:
 ```yaml
 services:
   php:
-    image: dmitrakovich/php-dev:7.3.29
+    image: dmitrakovich/php-dev:8.1.0
     container_name: php
     environment:
       TZ: Europe/Moscow
@@ -76,7 +76,7 @@ Example, in `docker-compose.yml`:
 ```yaml
 services:
   php:
-    image: dmitrakovich/php-dev:7.3.29
+    image: dmitrakovich/php-dev:8.1.0
     container_name: php
     environment:
       MYSQL_CHECK_HOST: mysql
