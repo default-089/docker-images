@@ -12,8 +12,10 @@ It has additional entrypoints for using as **cron**-container and as
 - pdo_mysql
 - intl
 - zip
+- gd
 - redis
 - pcntl
+- exif
 
 ## Available env-variables
 
