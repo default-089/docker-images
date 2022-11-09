@@ -30,6 +30,13 @@ ENV REDIS_CHECK_HOST     ""
 #   libicu57 - intl
 #   libzip4 - zip
 
+RUN apt-get update && apt-get install -y \
+		libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+	&& docker-php-ext-install -j$(nproc) gd
+
 RUN set -ex; \
     apt-get update; \
     buildDeps=" \
@@ -47,7 +54,7 @@ RUN set -ex; \
     "; \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y $buildDeps $runtimeDeps; \
     ln -s /usr/bin/msmtp /usr/sbin/sendmail; \
-    docker-php-ext-install bcmath opcache pdo_mysql intl zip gd pcntl exif; \
+    docker-php-ext-install bcmath opcache pdo_mysql intl zip pcntl exif; \
     pecl install timezonedb redis; \
     docker-php-ext-enable timezonedb redis; \
     apt-get purge -y --auto-remove $buildDeps; \
