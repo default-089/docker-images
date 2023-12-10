@@ -22,30 +22,21 @@ ENV SUPERVISOR_STOP_WAIT_SECS  10
 ENV MYSQL_CHECK_HOST     ""
 ENV REDIS_CHECK_HOST     ""
 
-# buildDeps:
-#   libicu-dev - intl
-#   libzip-dev - zip
-#
-# runtimeDeps:
-#   libicu57 - intl
-#   libzip4 - zip
-
-RUN apt-get update && apt-get install -y \
-		libfreetype6-dev \
-		libjpeg62-turbo-dev \
-		libpng-dev \
-        ffmpeg \
-	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
-	&& docker-php-ext-install -j$(nproc) gd
 
 RUN set -ex; \
     apt-get update; \
     buildDeps=" \
         libicu-dev \
         libzip-dev \
+        libpng-dev \
+        libc-client-dev \
+        libkrb5-dev \
     "; \
     runtimeDeps=" \
         libzip4 \
+        libpng16-16 \
+        libc-client2007e \
+        libkrb5-3 \
         msmtp \
         cron \
         gosu \
@@ -55,7 +46,8 @@ RUN set -ex; \
     "; \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y $buildDeps $runtimeDeps; \
     ln -s /usr/bin/msmtp /usr/sbin/sendmail; \
-    docker-php-ext-install bcmath opcache pdo_mysql intl zip pcntl exif; \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
+    docker-php-ext-install bcmath opcache pdo_mysql intl zip pcntl exif gd imap; \
     pecl install timezonedb redis; \
     docker-php-ext-enable timezonedb redis; \
     apt-get purge -y --auto-remove $buildDeps; \
